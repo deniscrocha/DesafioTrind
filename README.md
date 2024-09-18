@@ -1,5 +1,5 @@
 # Desafio Trindtech
-Desafio técnico da empresa [[https://www.instagram.com/trindtech/|Trindtech]] resolvido por mim.
+Desafio técnico da empresa [TrindTech](https://www.instagram.com/trindtech/) resolvido por mim.
 
 ## Status do Projeto
 > :construction: Projeto em construção :construction:
