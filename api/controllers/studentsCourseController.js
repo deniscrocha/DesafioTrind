@@ -1,10 +1,10 @@
 const studentsCourse = require("../models/studentsCourseModel");
 
-exports.getAll = (req, res) => {
-  res.send(studentsCourse.getAll());
-};
 exports.getByStudent = (req, res) => {
   res.send(studentsCourse.getByStudent());
+};
+exports.getByStudent = (req, res) => {
+  res.send(studentsCourse.getByCourse());
 };
 exports.get = (req, res) => {
   res.send(studentsCourse.get(req.params.id));

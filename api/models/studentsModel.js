@@ -1,15 +1,22 @@
 const knex = require("../database/db");
 
 exports.getAll = () => {
- knex.select().from("students").then((data)=>{
-    return data;
+ knex.select()
+    .from("students")
+    .innerJoin("studentsCourses", "students.student_id", "studentsCourses.student_id")
+    .then((data)=>{
+      return data;
   }).catch((e) =>{ 
     console.error(e);
     return { message: e };
   });
 }
 exports.get = (id) => {
-  knex.select().from("students").where("students_id", id).then((data) => {
+  knex.select("*")
+    .from("students")
+    .innerJoin("studentsCourses", "students.student_id", "studentsCourses.student_id")
+    .where("students_id", id)
+    .then((data) => {
     return data;
   }).catch((e) =>{
     console.error(e);
