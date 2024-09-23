@@ -7,7 +7,6 @@
  <a href="#Features">Features</a> • 
  <a href="#Pré-requisitos">Pré-requisitos</a> • 
  <a href="#Executando a API">Executando a API</a> • 
- <a href="#Rotas">Rotas</a> • 
 </p>
 
 <h4 align="center"> 

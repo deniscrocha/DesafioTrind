@@ -29,6 +29,7 @@ exports.createDatabase = async () => {
     table.string('student_birthday').notNullable();
     table.string('student_cpf').notNullable().unique();
     table.string('student_gender');
+    table.timestamp('created_at').defaultTo(knex.fn.now());
     table.integer('student_address').unsigned();
     table.foreign('student_address')
       .references('address_id')

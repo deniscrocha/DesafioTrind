@@ -8,4 +8,5 @@ Desafio técnico da empresa [TrindTech](https://www.instagram.com/trindtech/) re
 - React.
 - ExpressJS.
 - NodeJs.
+- Knex.
 - PostgreSQL.

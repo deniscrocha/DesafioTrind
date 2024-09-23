@@ -1,4 +1,4 @@
-import Header from "../../components/header/Header.jsx";
+import Header from "./Header.jsx";
 import styled from "styled-components";
 import search from "../../../public/search.png";
 import people from "../../../public/people.png";
