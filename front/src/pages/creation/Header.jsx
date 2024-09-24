@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import back from "../../../public/backarrow.png";
 import deleteIcon from "../../../public/delete.png";
 import styled from "styled-components";
@@ -35,12 +36,14 @@ const ContainerHeader = styled.header`
         align-items: center;
         justify-content: space-between;
         gap: 5vh;
+				cursor: pointer;
     }
 `
 export default function Header(){
+	const navigate = useNavigate();
 	return(
 		<ContainerHeader>
-            <div>
+            <div onClick={()=>{navigate("/")}}>
                 <img src={back} alt="comeback" />
                 <h1>Gerenciador de Alunos</h1>
                 <p>|</p>

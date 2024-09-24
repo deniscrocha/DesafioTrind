@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Header from "./Header.jsx";
 import styled from "styled-components";
 import search from "../../../public/search.png";
@@ -107,6 +108,7 @@ const SwapDiv = styled.div`
 `
 
 export default function Home(){
+	const navigate = useNavigate();
 	return(
 		<>
 		<Header />
@@ -116,7 +118,7 @@ export default function Home(){
 					<input type="text" placeholder="Buscar por aluno" />
 					<img src={search}/>
 				</SearchInput>
-				<ButtonAdd>
+				<ButtonAdd onClick={() => navigate("/student")}>
 					<img src={people}/>
 					<p>Adicionar</p>
 				</ButtonAdd>
