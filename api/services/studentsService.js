@@ -1,10 +1,15 @@
 const model = require("../models/studentsModel");
+const studentsCoursesModel = require("../models/studentsCoursesModel");
 
-exports.get = (req, res)=>{
+exports.get = (_, res)=>{
 	res.send(model.getAll());
 }
 exports.getById = (req, res)=>{
 	res.send(model.get(req.params.id));
+}
+exports.getStudentCourses = (req, res)=>{
+	// TODO: Validate if Student exist
+	res.send(studentsCoursesModel.getByStudent(req.params.id));
 }
 exports.create = (req, res)=>{
 	// TODO: Validate data

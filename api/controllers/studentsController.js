@@ -7,5 +7,6 @@ router.get("/:id", service.getById);
 router.post("/", service.create);
 router.put("/:id", service.update);
 router.delete("/:id", service.delete);
+router.get("/courses/:id", service.getStudentCourses);
 
 module.exports = router

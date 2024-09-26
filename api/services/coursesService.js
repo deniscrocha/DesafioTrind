@@ -1,10 +1,14 @@
 const model = require("../models/coursesModel");
+const studentsCoursesModel = require("../models/studentsCoursesModel");
 
 exports.get = (_, res)=>{
 	res.send(model.getAll);
 }
 exports.getById = (req, res) =>{
 	res.send(model.get(req.params.id));
+}
+exports.getCourseStudents = (req, res)=>{
+	res.send(studentsCoursesModel.getByCourse(req.params.id))
 }
 exports.create = (req, res)=>{
 	// TODO: Make Data Validation
