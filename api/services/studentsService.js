@@ -1,21 +1,21 @@
-const model = require("../models/coursesModel");
+const model = require("../models/studentsModel");
 
-exports.get = (_, res)=>{
-	res.send(model.getAll);
+exports.get = (req, res)=>{
+	res.send(model.getAll());
 }
-exports.getById = (req, res) =>{
+exports.getById = (req, res)=>{
 	res.send(model.get(req.params.id));
 }
 exports.create = (req, res)=>{
-	// TODO: Make Data Validation
+	// TODO: Validate data
 	res.send(model.create(req.body));
 }
 exports.update = (req, res)=>{
-	// TODO: Make ID validation
-	// TODO: Make new Data Validation
+	// TODO: Validate new data
+	// TODO: Validate id
 	res.send(model.update(req.params.id, req.body));
 }
 exports.delete = (req, res)=>{
-	// TODO: Make ID validation
+	// TODO: Validate id
 	res.send(model.delete(req.params.id));
 }

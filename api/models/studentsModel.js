@@ -47,8 +47,15 @@ exports.update = (id, newData) => {
     students_birthday: newData.students_birthday,
     students_cpf: newData.students_cpf,
     students_gender: newData.students_gender,
-    students_address: newData.students_address
-  })
+		student_cep: newData.student_cep,
+		student_country: newData.student_country,
+		student_street: newData.student_street,
+		student_neighborhood: newData.student_neighborhood,
+		student_number: newData.student_number,
+		student_complement: newData.student_complement,
+		student_city: newData.student_city,
+		student_state: newData.student_state,
+	})
   .then(() => {
     return{ message: "updated successfully" };
   })
