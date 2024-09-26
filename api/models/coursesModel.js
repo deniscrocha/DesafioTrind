@@ -30,6 +30,21 @@ exports.create = (data) => {
       return { message: e };
     })
 }
+exports.update = (id, data) => {
+  knex("courses")
+    .insert(data)
+		.where("course_id", id)
+    .then((data) => {
+      return { 
+        resp: data,
+        success: "created!" 
+      };
+    })
+    .catch((e) => {
+      console.log(e);
+      return { message: e };
+    })
+}
 exports.delete = (id) => {
   knex("courses").where("course_id", id).del().then(()=>{
     return { success: `${id} deleted!` };

@@ -9,6 +9,7 @@ exports.get = (id) => {
   });
 }
 exports.getByStudent = (id) => {
+	// TODO: Checar se existe estudante
   knex.select().from("studentsCourses").where("student_id", id).then((data) => {
     return data;
   }).catch((e) =>{
@@ -17,6 +18,7 @@ exports.getByStudent = (id) => {
   });
 }
 exports.getByCourse = (id) => {
+	// TODO: Checar se existe curso
   knex.select().from("studentsCourses").where("course_id", id).then((data) => {
     return data;
   }).catch((e) =>{
@@ -24,9 +26,16 @@ exports.getByCourse = (id) => {
     return { message: e };
   });
 }
-exports.create = (data) => {
+exports.create = (idStudent, idCourse, body) => {
+	// TODO: Checar se existe estudante e curso
+	// TODO: Checar se a data está no padrão (DD-MM-YYYY)
+	const conclusionDate = body.course_conslusion_date;
   knex("studentsCourses")
-    .insert(data)
+    .insert({
+			student_id: idStudent,
+			course_id: idCourse,
+			course_conclusion_date: conclusionDate
+		})
     .then((data) => {
       return { 
         resp: data,
@@ -39,6 +48,7 @@ exports.create = (data) => {
     })
 }
 exports.delete = (id) => {
+	// TODO: Checar se existe Relação
   knex("studentsCourses").where("id", id).del().then(()=>{
     return { success: `${id} deleted!` };
   }).catch((e) =>{

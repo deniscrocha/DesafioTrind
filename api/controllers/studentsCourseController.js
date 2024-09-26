@@ -1,16 +1,17 @@
 const studentsCourse = require("../models/studentsCourseModel");
 
-exports.getByStudent = (req, res) => {
-  res.send(studentsCourse.getByStudent());
-};
-exports.getByStudent = (req, res) => {
-  res.send(studentsCourse.getByCourse());
-};
+
 exports.get = (req, res) => {
   res.send(studentsCourse.get(req.params.id));
 };
+exports.getByStudent = (req, res) => {
+  res.send(studentsCourse.get(req.params.id));
+};
+exports.getByCourse = (req, res) => {
+  res.send(studentsCourse.get(req.params.id));
+};
 exports.create = (req, res) => {
-  res.send(studentsCourse.create(req.body));
+  res.send(studentsCourse.create(req.params.idStudent, req.params.idCourse, req.body));
 };
 exports.delete = (req, res) => {
   res.send(studentsCourse.delete(req.params.id));
