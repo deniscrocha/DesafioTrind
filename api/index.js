@@ -6,6 +6,7 @@ const linkRouter = require("./controllers/studentsCourseController");
 const coursesRouter = require("./controllers/coursesController");
 
 const app = express();
+app.use(express.json())
 const port = 3000;
 knex.schema.hasTable('students').then(function (exists) {
 	if (!exists) {

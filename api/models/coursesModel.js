@@ -1,55 +1,86 @@
 const knex = require("../database/db");
 
-exports.getAll = () => {
- knex.select().from("courses").then((data)=>{
-    return data;
-  }).catch((e) =>{ 
-    console.error(e);
-    return { message: e };
-  });
+exports.getAll = async () => {
+	return await knex.select().from("courses").then((data) => {
+		return {
+			status: "success",
+			data: data
+		};
+	}).catch((e) => {
+		console.error(e);
+		return {
+			status: "failure",
+			msg: e
+		};
+	});
 }
-exports.get = (id) => {
-  knex.select().from("courses").where("course_id", id).then((data) => {
-    return data;
-  }).catch((e) =>{
-    console.error(e);
-    return { message: e };
-  });
-}
-exports.create = (data) => {
-  knex("courses")
-    .insert(data)
-    .then((data) => {
-      return { 
-        resp: data,
-        success: "created!" 
-      };
-    })
-    .catch((e) => {
-      console.log(e);
-      return { message: e };
-    })
-}
-exports.update = (id, data) => {
-  knex("courses")
-    .insert(data)
+exports.get = async (id) => {
+	return await knex.select()
+		.from("courses")
 		.where("course_id", id)
-    .then((data) => {
-      return { 
-        resp: data,
-        success: "created!" 
-      };
-    })
-    .catch((e) => {
-      console.log(e);
-      return { message: e };
-    })
+		.then((data) => {
+			return {
+				status: "success",
+				data: data
+			};
+		}).catch((e) => {
+			console.error(e);
+			return {
+				status: "failure",
+				msg: e
+			};
+		});
 }
-exports.delete = (id) => {
-  knex("courses").where("course_id", id).del().then(()=>{
-    return { success: `${id} deleted!` };
-  }).catch((e) =>{
-    console.log(e);
-    return { message: e };
-  });
+exports.create = async (data) => {
+	return await knex("courses")
+		.insert(data)
+		.then((data) => {
+			return {
+				status: "success",
+				msg: "created!",
+				data: data
+			};
+		})
+		.catch((e) => {
+			console.log(e);
+			return {
+				status: "failure",
+				msg: e
+			};
+		})
+}
+exports.update = async (id, data) => {
+	return await knex("courses")
+		.update(data)
+		.where("course_id", id)
+		.then((data) => {
+			return {
+				status: "success",
+				data: data
+			};
+		})
+		.catch((e) => {
+			console.log(e);
+			return {
+				status: "failure",
+				msg: e
+			};
+		})
+}
+exports.delete = async (id) => {
+	return await knex("courses")
+		.where("course_id", id)
+		.del()
+		.then((data) => {
+			return {
+				status: "success",
+				data: data
+			};
+		}).catch((e) => {
+			console.log(e);
+			return {
+				status: "failure",
+				msg: e
+			};
+		});
 }
