@@ -1,26 +1,65 @@
 const model = require("../models/studentsModel");
 const studentsCoursesModel = require("../models/studentsCoursesModel");
 
-exports.get = (_, res)=>{
-	res.send(model.getAll());
+// TODO: Tratar erros
+exports.get = async (_, res)=>{
+	const query = await model.getAll();
+	res.send(query);
 }
-exports.getById = (req, res)=>{
-	res.send(model.get(req.params.id));
+exports.getById = async (req, res)=>{
+	const id = req.params.id;
+	const query = await model.get(id);
+	res.send(query);
 }
-exports.getStudentCourses = (req, res)=>{
-	// TODO: Validate if Student exist
+exports.getStudentCourses = async (req, res)=>{
+	// TODO: Validate id
 	res.send(studentsCoursesModel.getByStudent(req.params.id));
 }
-exports.create = (req, res)=>{
-	// TODO: Validate data
-	res.send(model.create(req.body));
+exports.create = async (req, res)=>{
+	const data = {
+		student_name: req.body.student_name,
+		student_email: req.body.student_email,
+		student_lastname: req.body.student_lastname,
+		student_birthday: req.body.student_birthday,
+		student_cpf: req.body.student_cpf,
+		student_gender: req.body.student_gender,
+		student_cep: req.body.student_cep,
+		student_country: req.body.student_country,
+		student_street: req.body.student_street,
+		student_neighborhood: req.body.student_neighborhood,
+		student_number: req.body.student_number,
+		student_complement: req.body.student_complement,
+		student_city: req.body.student_city,
+		student_state: req.body.student_state
+	}
+	const query = await model.create(data);
+	res.send(query);
 }
-exports.update = (req, res)=>{
-	// TODO: Validate new data
+exports.update = async (req, res)=>{
 	// TODO: Validate id
-	res.send(model.update(req.params.id, req.body));
+	const id = req.params.id;
+	const data = {
+		student_name: req.body.student_name,
+		student_email: req.body.student_email,
+		student_lastname: req.body.student_lastname,
+		student_birthday: req.body.student_birthday,
+		student_cpf: req.body.student_cpf,
+		student_gender: req.body.student_gender,
+		student_cep: req.body.student_cep,
+		student_country: req.body.student_country,
+		student_street: req.body.student_street,
+		student_neighborhood: req.body.student_neighborhood,
+		student_number: req.body.student_number,
+		student_complement: req.body.student_complement,
+		student_city: req.body.student_city,
+		student_state: req.body.student_state
+	}
+	const query = await model.update(id, data);
+	res.send(query)
 }
-exports.delete = (req, res)=>{
+exports.delete = async (req, res)=>{
 	// TODO: Validate id
-	res.send(model.delete(req.params.id));
+	const id = req.params.id;
+	const query = await model.delete(id);
+	res.send(query);
 }
