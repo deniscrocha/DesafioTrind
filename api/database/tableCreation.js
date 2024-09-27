@@ -29,8 +29,8 @@ exports.createDatabase = async () => {
 					console.log('Students Table created');
 					knex.schema.createTable('studentsCourses', table => {
 						table.increments('studentsCourses_id').primary()
-						table.integer('student_id').unsigned();
-						table.integer('course_id').unsigned();
+						table.integer('student_id').notNullable();
+						table.integer('course_id').notNullable();
 						table.string('course_conclusion_date');
 						table.foreign('student_id')
 							.references('student_id')

@@ -13,7 +13,9 @@ exports.getById = async (req, res)=>{
 }
 exports.getStudentCourses = async (req, res)=>{
 	// TODO: Validate id
-	res.send(studentsCoursesModel.getByStudent(req.params.id));
+	const id = req.params.id;
+	const query = await studentsCoursesModel.getByStudent(id);
+	res.send(query);
 }
 exports.create = async (req, res)=>{
 	const data = {

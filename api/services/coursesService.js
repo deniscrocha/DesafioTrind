@@ -10,8 +10,10 @@ exports.getById = async (req, res) =>{
 	const query = await model.get(req.params.id);
 	res.status(200).send(query);
 }
-exports.getCourseStudents = (req, res)=>{
-	res.send(studentsCoursesModel.getByCourse(req.params.id))
+exports.getCourseStudents = async (req, res)=>{
+	const id = req.params.id;
+	const query = await studentsCoursesModel.getByCourse(id);
+	res.send(query)
 }
 exports.create = async (req, res)=>{
 	const data = { course_name: req.body.course_name };
