@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import Header from "./Header.jsx";
 import styled from "styled-components";
 import search from "../../../public/search.png";
@@ -6,6 +7,7 @@ import people from "../../../public/people.png";
 import left_arrow from "../../../public/leftarrow.png";
 import right_arrow from "../../../public/rightarrow.png";
 import swap from "../../../public/swap.png";
+import StudentsContexts from "../../contexts/StudentsContext.jsx";
 
 const Container = styled.div`
 	display: flex;
@@ -107,46 +109,75 @@ const SwapDiv = styled.div`
 	align-items: center;
 `
 
-export default function Home(){
+export default function Home() {
 	const navigate = useNavigate();
-	return(
+	const { students, _ } = useContext(StudentsContexts);
+	const handleClickStudent = (key) => {
+		navigate("/student",{state: {id: key}} )
+	}
+	const handleCourse = (course)=>{
+		return(
+			<p>
+				{course}
+			</p>
+		)
+	}
+	const handleStudents = students.map((student) => {
+		return (
+			<tr
+				key={student.student_id} 
+				onClick={() => handleClickStudent(student.student_id)}
+			>
+				<td>{student.created_at.slice(0, 10)} </td>
+				<td>{student.student_name} </td>
+				<td>{student.student_state} </td>
+				<td>{student.student_courses.map((course)=>handleCourse(course))}</td>
+			</tr>
+		)
+	})
+	return (
 		<>
-		<Header />
-		<Container>
-			<SearchContainer>
-				<SearchInput>
-					<input type="text" placeholder="Buscar por aluno" />
-					<img src={search}/>
-				</SearchInput>
-				<ButtonAdd onClick={() => navigate("/student")}>
-					<img src={people}/>
-					<p>Adicionar</p>
-				</ButtonAdd>
-			</SearchContainer>
-			<ListStudents>
-				<tr>
-					<th>
-						<SwapDiv>
-							Data de cadastro
-							<Swap src={swap} />
-						</SwapDiv>
-					</th>
-					<th>Nome</th>
-					<th>Estado</th>
-					<th>Cursos</th>
-				</tr>
-			</ListStudents>
-			<Pages>
-				<ButtonPages type="button">
-					<img src={left_arrow} />
-					<p>Anterior</p>
-				</ButtonPages>
-				<ButtonPages type="button">
-					<p>Próximo</p>
-					<img src={right_arrow} />
-				</ButtonPages>
-			</Pages>
-		</Container>
+			<Header />
+			<Container>
+				<SearchContainer>
+					<SearchInput>
+						<input type="text" placeholder="Buscar por aluno" />
+						<img src={search} />
+					</SearchInput>
+					<ButtonAdd onClick={() => handleClickStudent(null)}>
+						<img src={people} />
+						<p>Adicionar</p>
+					</ButtonAdd>
+				</SearchContainer>
+				<ListStudents>
+					<thead>
+					<tr>
+						<th>
+							<SwapDiv>
+								Data de cadastro
+								<Swap src={swap} />
+							</SwapDiv>
+						</th>
+						<th>Nome</th>
+						<th>Estado</th>
+						<th>Cursos</th>
+					</tr>
+					</thead>
+					<tbody>
+						{students.length > 1 ? handleStudents : <tr></tr>}
+					</tbody>
+				</ListStudents>
+				<Pages>
+					<ButtonPages type="button">
+						<img src={left_arrow} />
+						<p>Anterior</p>
+					</ButtonPages>
+					<ButtonPages type="button">
+						<p>Próximo</p>
+						<img src={right_arrow} />
+					</ButtonPages>
+				</Pages>
+			</Container>
 		</>
 	)
 }
