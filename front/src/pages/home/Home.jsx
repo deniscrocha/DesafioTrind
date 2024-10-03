@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Header from "./Header.jsx";
 import styled from "styled-components";
 import search from "../../../public/search.png";
@@ -8,6 +8,7 @@ import left_arrow from "../../../public/leftarrow.png";
 import right_arrow from "../../../public/rightarrow.png";
 import swap from "../../../public/swap.png";
 import StudentsContexts from "../../contexts/StudentsContext.jsx";
+import CoursesContext from "../../contexts/CoursesContext.jsx";
 
 const Container = styled.div`
 	display: flex;
@@ -112,28 +113,42 @@ const SwapDiv = styled.div`
 export default function Home() {
 	const navigate = useNavigate();
 	const { students, _ } = useContext(StudentsContexts);
-	const handleClickStudent = (key) => {
-		navigate("/student",{state: {id: key}} )
+	const { courses, __ } = useContext(CoursesContext);
+	const handleClickStudent = (key, name) => {
+		navigate("/student", { state: { id: key, name: name } })
 	}
-	const handleCourse = (course)=>{
-		return(
-			<p>
-				{course}
-			</p>
-		)
+	const handleCourse = (studentCourse) => {
+		let courseName;
+		courses.forEach((course)=>{
+			if(course.course_id === studentCourse.course_id){
+				courseName = course.course_name
+			}
+		})
+		return courseName ? (
+			<>
+				{courseName}
+			</>
+			)
+			: ""
 	}
 	const handleStudents = students.map((student) => {
-		return (
+		return student ? (
 			<tr
-				key={student.student_id} 
-				onClick={() => handleClickStudent(student.student_id)}
+				key={student.student_id}
+				onClick={() => handleClickStudent(student.student_id, student.student_name)}
 			>
 				<td>{student.created_at.slice(0, 10)} </td>
 				<td>{student.student_name} </td>
 				<td>{student.student_state} </td>
-				<td>{student.student_courses.map((course)=>handleCourse(course))}</td>
+				<td>
+					{student.student_courses.length > 0 ?
+						student.student_courses.map((course) => handleCourse(course))
+						: ""
+					}
+				</td>
 			</tr>
 		)
+			: ""
 	})
 	return (
 		<>
@@ -144,27 +159,27 @@ export default function Home() {
 						<input type="text" placeholder="Buscar por aluno" />
 						<img src={search} />
 					</SearchInput>
-					<ButtonAdd onClick={() => handleClickStudent(null)}>
+					<ButtonAdd onClick={() => handleClickStudent("", null)}>
 						<img src={people} />
 						<p>Adicionar</p>
 					</ButtonAdd>
 				</SearchContainer>
 				<ListStudents>
 					<thead>
-					<tr>
-						<th>
-							<SwapDiv>
-								Data de cadastro
-								<Swap src={swap} />
-							</SwapDiv>
-						</th>
-						<th>Nome</th>
-						<th>Estado</th>
-						<th>Cursos</th>
-					</tr>
+						<tr>
+							<th>
+								<SwapDiv>
+									Data de cadastro
+									<Swap src={swap} />
+								</SwapDiv>
+							</th>
+							<th>Nome</th>
+							<th>Estado</th>
+							<th>Cursos</th>
+						</tr>
 					</thead>
 					<tbody>
-						{students.length > 1 ? handleStudents : <tr></tr>}
+						{students.length > 0 ? handleStudents : <tr></tr>}
 					</tbody>
 				</ListStudents>
 				<Pages>

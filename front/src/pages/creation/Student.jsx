@@ -3,6 +3,7 @@ import Header from "./Header";
 import { useLocation } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import StudentsContexts from "../../contexts/StudentsContext";
+import CoursesContext from "../../contexts/CoursesContext";
 
 const Container = styled.div`
     display: flex;
@@ -51,7 +52,7 @@ export default function Student() {
 	const location = useLocation();
 	const id = location.state.id;
 	const [ student, setStudent ] = useState({});
-	const [ name, setName ] = useState("");
+	const [ name, setName ] = useState(location.state.name);
 	const [ lastname, setLastname ] = useState("");
 	const [ birthday, setBirthday ] = useState("");
 	const [ cpf, setCpf ] = useState("");
@@ -65,8 +66,9 @@ export default function Student() {
 	const [ complement, setComplement ] = useState("");
 	const [ city, setCity ] = useState("");
 	const [ state, setState ] = useState("");
-	const [ courses, setCourses ] = useState([]);
-	const { students, _ } = useContext(StudentsContexts);
+	const [ studentsCourses, setStudentsCourses ] = useState([]);
+	const {courses, setCourses} = useContext(CoursesContext);
+	const { students, setStudents } = useContext(StudentsContexts);
 	const findStudent = () =>{
 		students.forEach((s)=>{
 			if(s.student_id === id){
@@ -97,18 +99,18 @@ export default function Student() {
 			setComplement(student.student_complement);
 			setCity(student.student_city);
 			setState(student.student_state);
-			setCourses(student.courses);
+			if(student.student_courses) setStudentsCourses(student.courses);
 		}
 	}, [student])
 	const handleSave = ()=>{
-
-	}
-	const handleDelete = () =>{
-		
+		// checar campos obrigatorios
+		// checar se existe
+		// update
+		// create
 	}
 	return (
 		<>
-			<Header />
+			<Header props={{id, name, lastname}}/>
 			<Container>
 				<StudentContainer>
 					<div>
@@ -249,7 +251,14 @@ export default function Student() {
 						<label>Nome Do Curso</label><br />
 						<Select 
 							style={{ width: "741px" }} 
-						/>
+						>
+						<option></option>
+						{courses.map((course)=>{
+							return(
+								<option>{course.course_name}</option>
+							)
+						})}
+						</Select>
 					</div>
 					<div>
 						<label>Data de Conclusão</label><br />

@@ -1,41 +1,42 @@
 import logo from "../../../public/logo.png";
-import styled from "styled-components";
 
-const Container = styled.header`
-	position: relative;
-	width: 100%;
-	height: 67px;
-	left: 0px;
-	top: 0px;
-	background: #EA394E;
-	border-radius: 0px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 5vh;
-	padding: 1vh;
-	color: white;
-	& img{
-		margin-left: 5vh;
-		height: 5vh;
-	}
-	& h1{
-		font-family: 'Montserrat';
-		font-style: normal;
-		font-weight: 800;
-		font-size: 16px;
-		line-height: 30px;
-		letter-spacing: 0.01em;
-		text-align: center;
-	}
-`
+const titleStyle = {
+		fontFamily: "Montserrat",
+		fontStyle: "normal",
+		fontWeight: 800,
+		fontSize: "16px",
+		lineHeight: "30px",
+		letterSpacing: "0.01em",
+		textAlign: "center",
+		color: "white"
+}
 
-export default function Header(){
-	return(
-		<Container>
-			<img src={logo} alt="logo" />
-			<h1>Gerenciador de Alunos</h1>
-		</Container>
+export default function Header() {
+	return (
+		<nav className="navbar navbar-expand-lg bg-body-tertiary">
+			<div className="container-fluid" style={{ background: "#EA394E", height: "5em", marginTop: -10, padding: 10 }}>
+				<img 
+					src={logo} 
+					className="navbar-brand" 
+					alt="logo" 
+					style={{
+						marginLeft: 20,
+						width: "2.3em",
+						height: "2.2em" 
+					}} 
+					/>
+				<div className="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul className="navbar-nav me-auto mb-2 mb-lg-0">
+						<li className="nav-item">
+							<h1
+								style={titleStyle}
+							>
+								Gerenciador de Aluno
+							</h1>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 	)
 }
